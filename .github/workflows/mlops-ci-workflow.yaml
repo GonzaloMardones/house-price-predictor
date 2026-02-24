@@ -19,3 +19,26 @@ jobs:
 
       - name: Install dependencies
         run: pip install -r requirements.txt
+
+      - name: Run Data Processing
+        run: python src/data/process_data.py \
+          --input src/data/raw/house_data.csv \
+          --output src/data/processed/cleaned_house_data.csv
+
+      - name: Run Feature Engineering
+        run: python src/features/engineer.py \
+          --input src/data/processed/cleaned_house_data.csv \
+          --output src/data/processed/features_house_data.csv \
+          --preprocessor models/trained/preprocessor.pkl
+
+      - name: Run Model Training
+        run: python src/models/train_model.py \
+          --input src/data/processed/features_house_data.csv \
+          --output src/models/trained/model.pkl
+      
+      - name: Train the model
+        run: python src/models/train_model.py \
+          -- config src/models/config.yaml \
+          -- data data/processed/features_house_data.csv \
+          -- models-dir models \
+          -- mlflow-tracking-uri http://localhost:5555
