@@ -63,5 +63,5 @@ jobs:
           file: ./Dockerfile
           push: true
           tags: |
-            gonzalomardones/house-price-predictor:latest
-            gonzalomardones/house-price-predictor:${{ github.sha }}
+            ${{ secrets.DOCKERHUB_USERNAME }}/house-price-predictor:latest
+            ${{ secrets.DOCKERHUB_USERNAME }}/house-price-predictor:${{ github.sha }}
