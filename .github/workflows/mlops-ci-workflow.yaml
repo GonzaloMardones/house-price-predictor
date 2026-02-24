@@ -21,7 +21,7 @@ jobs:
         run: pip install -r requirements.txt
 
       - name: Run Data Processing
-        run: python src/data/process_data.py \
+        run: python src/data/run_processing.py \
           --input src/data/raw/house_data.csv \
           --output src/data/processed/cleaned_house_data.csv
 
